@@ -1,16 +1,25 @@
-import React from 'react'
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import axios from 'axios';
 
+import { setCategoryIndex } from '../redux/slices/filterSlice';
 import Categories from '../components/Categories';
 import Sort from '../components/Sort';
 import PizzaBlock from '../components/PizzaBlock';
 import Skeleton from '../components/PizzaBlock/Skeleton';
 import Paginaton from '../components/Pagination';
+import { SearchContext } from '../App';
 
-function Home({ searchValue }) {
+function Home() {
+    const dispatch = useDispatch();
+    const { categoryIndex, activeSort } = useSelector((state) => state.filterSlice);
+
+    const { searchValue } = React.useContext(SearchContext);
+
     const [isLoading, setIsLoading] = React.useState(true);
     const [pizzas, setPizzas] = React.useState([]);
-    const [activeSort, setActiveSort] = React.useState({ name: "популярности (ASC)", sort: "rating" });
-    const [categoryIndex, setCategoryIndex] = React.useState(0);
+    // const [activeSort, setActiveSort] = React.useState({ name: "популярности (ASC)", sort: "rating" });
+    // const [categoryIndex, setCategoryIndex] = React.useState(0);
     const [currentPage, setCurrentPage] = React.useState(1);
 
 
@@ -25,15 +34,12 @@ function Home({ searchValue }) {
 
         const search = searchValue ? `&q=${searchValue}` : "";
 
-        fetch(`http://localhost:3100/pizzas${sort}&_page=${currentPage}&_limit=8${category}${search}`)
-            .then((res) => {
-                return res.json();
-            })
-            .then((json) => {
+        axios.get(`http://localhost:3100/pizzas${sort}&_page=${currentPage}&_limit=8${category}${search}`).
+            then(res => {
                 // const items = json.filter((obj) => obj.title.includes(searchValue));
-                setPizzas(json);
+                setPizzas(res.data);
                 setIsLoading(false);
-            });
+            })
         window.scrollTo(0, 0);
     }, [categoryIndex, activeSort, searchValue, currentPage]);
 
@@ -42,18 +48,20 @@ function Home({ searchValue }) {
     return (
         <div className="container">
             <div className="content__top">
-                <Categories chosenCategory={categoryIndex} setChosenCategory={setCategoryIndex} />
-                <Sort activeSort={activeSort} setActiveSort={setActiveSort} />
+                <Categories chosenCategory={categoryIndex}
+                    setChosenCategory={(i) => dispatch(setCategoryIndex(i))}
+                />
+                <Sort />
             </div>
             <h2 className="content__title">Все пиццы</h2>
             <div className="content__items">
                 {isLoading
                     ? [...new Array(8)].map((_, index) => <Skeleton key={index} />)
                     : pizzas.map((obj) =>
-                            <PizzaBlock key={obj.id} {...obj} />
-                        )}
+                        <PizzaBlock key={obj.id} {...obj} />
+                    )}
             </div>
-            <Paginaton setCurrentPage={setCurrentPage}/>
+            <Paginaton setCurrentPage={setCurrentPage} />
         </div>
     )
 }
