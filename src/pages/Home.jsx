@@ -3,14 +3,13 @@ import { useSelector, useDispatch } from 'react-redux';
 import qs from 'qs';
 import { useNavigate } from 'react-router-dom';
 
-import { setCategoryIndex, setStartFilter } from '../redux/slices/filterSlice';
-import { fetchPizzas } from '../redux/slices/pizzaSlice';
+import { selectFilterSlice, setCategoryIndex, setStartFilter } from '../redux/slices/filterSlice';
+import { fetchPizzas, selectPizzaSlice } from '../redux/slices/pizzaSlice';
 import Categories from '../components/Categories';
 import Sort, { sortList } from '../components/Sort';
 import PizzaBlock from '../components/PizzaBlock';
 import Skeleton from '../components/PizzaBlock/Skeleton';
 import Paginaton from '../components/Pagination';
-import { SearchContext } from '../App';
 
 
 function Home() {
@@ -20,11 +19,11 @@ function Home() {
     const isSearch = React.useRef(false);
     const isMount = React.useRef(false);
 
-    const { categoryIndex, activeSort, currentPage } = useSelector((state) => state.filterSlice);
+    const { categoryIndex, activeSort, currentPage, searchValue } = useSelector(selectFilterSlice);
 
-    const { items, status } = useSelector((state) => state.pizzaSlice);
+    const { items, status } = useSelector(selectPizzaSlice);
 
-    const { searchValue } = React.useContext(SearchContext);
+
 
     // const [isLoading, setIsLoading] = React.useState(true);
 
