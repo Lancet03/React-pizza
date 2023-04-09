@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 
 import cartEmptyPng from '../assets/img/empty-cart.png'
@@ -19,4 +18,4 @@ function CartEmpty() {
     )
 }
 
-export default CartEmpty
+export default CartEmpty;

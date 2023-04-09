@@ -3,10 +3,14 @@ import ReactPaginate from 'react-paginate';
 import { useDispatch } from 'react-redux';
 
 import { setCurrentPage } from '../../redux/slices/filterSlice';
-import styles from "./Pagination.module.scss"
+import styles from "./Pagination.module.scss";
 
+type PaginationProps = {
+  forcePage: number
+}
 
-function Paginaton({forcePage}) {
+const Paginaton: React.FC<PaginationProps> = ({forcePage}) => {
+// function Paginaton({forcePage}) {
   const dispatch = useDispatch()
 
   return (

@@ -11,8 +11,8 @@ import PizzaBlock from '../components/PizzaBlock';
 import Skeleton from '../components/PizzaBlock/Skeleton';
 import Paginaton from '../components/Pagination';
 
-
-function Home() {
+const Home: React.FC = () => {
+    // function Home() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -41,12 +41,14 @@ function Home() {
 
         const search = searchValue ? `&q=${searchValue}` : "";
 
-        dispatch(fetchPizzas({
-            sort,
-            search,
-            category,
-            currentPage
-        }));
+        dispatch(
+            // @ts-ignore
+            fetchPizzas({
+                sort,
+                search,
+                category,
+                currentPage
+            }));
         window.scrollTo(0, 0);
     };
 
@@ -90,7 +92,7 @@ function Home() {
         <div className="container">
             <div className="content__top">
                 <Categories chosenCategory={categoryIndex}
-                    setChosenCategory={(i) => dispatch(setCategoryIndex(i))}
+                    setChosenCategory={(i: number) => dispatch(setCategoryIndex(i))}
                 />
                 <Sort />
             </div>
@@ -106,7 +108,7 @@ function Home() {
                     <div className="content__items">
                         {status === "loading"
                             ? [...new Array(8)].map((_, index) => <Skeleton key={index} />)
-                            : items.map((obj) =>
+                            : items.map((obj: any) =>
                                 <PizzaBlock key={obj.id} {...obj} />
                             )}
                     </div>

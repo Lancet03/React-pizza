@@ -1,6 +1,12 @@
 import React from 'react';
 
-function Categories( {chosenCategory,setChosenCategory} ) {
+type CategoriesProps = {
+    chosenCategory: number;
+    setChosenCategory: any;
+}
+
+const Categories: React.FC<CategoriesProps> = ({chosenCategory,setChosenCategory}) => {
+    // function Categories( {chosenCategory,setChosenCategory} ) {
 
 
     const categories = ["Все",
@@ -10,7 +16,7 @@ function Categories( {chosenCategory,setChosenCategory} ) {
         "Острые",
         "Закрытые"];
 
-    const onCategory = (index) => {
+    const onCategory = (index: number) => {
         setChosenCategory(index);
 
     };

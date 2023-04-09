@@ -6,12 +6,14 @@ import logoSVG from "../assets/img/pizza-logo.svg";
 import Search from "./Search";
 import { selectCartSlice } from "../redux/slices/cartSlice";
 
-function Header() {
+
+const Header:React.FC = () => {
+  // function Header() {
   const location = useLocation();
 
   const { items, totalPrice } = useSelector(selectCartSlice);
 
-  const totalCount = items.reduce((sum, item) => sum + item.count , 0);
+  const totalCount = items.reduce((sum: number, item: any) => sum + item.count , 0);
 
   return (
     <div className="header">
