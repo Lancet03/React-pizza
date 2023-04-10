@@ -2,19 +2,21 @@ import React from 'react';
 
 type CategoriesProps = {
     chosenCategory: number;
-    setChosenCategory: any;
-}
+    setChosenCategory: (index: number) => void;
+};
 
-const Categories: React.FC<CategoriesProps> = ({chosenCategory,setChosenCategory}) => {
+const categories = ["Все",
+"Мясные",
+"Вегетарианские",
+"Гриль",
+"Острые",
+"Закрытые"];
+
+const Categories: React.FC<CategoriesProps> = ({ chosenCategory, setChosenCategory }) => {
     // function Categories( {chosenCategory,setChosenCategory} ) {
 
 
-    const categories = ["Все",
-        "Мясные",
-        "Вегетарианские",
-        "Гриль",
-        "Острые",
-        "Закрытые"];
+
 
     const onCategory = (index: number) => {
         setChosenCategory(index);

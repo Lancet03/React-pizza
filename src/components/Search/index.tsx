@@ -5,7 +5,8 @@ import { useDispatch } from 'react-redux';
 import styles from "./Search.module.scss";
 import { setSearchValue } from '../../redux/slices/filterSlice';
 
-function Search() {
+const Search: React.FC = () => {
+// function Search() {
     const dispatch = useDispatch();
 
     const [inputValue, setInputValue] = React.useState("");
@@ -25,7 +26,7 @@ function Search() {
         inputRef.current?.focus();
     }
 
-    const onChangeInput = (e: any) => {
+    const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
         setInputValue(e.target.value);
         updateSearchValue(e.target.value);
     };
@@ -49,7 +50,7 @@ function Search() {
                 type="text"
                 placeholder='Поиск пиццы...' />
             {inputValue && <svg
-                onClick={() => onClickClear()}
+                onClick={onClickClear}
                 className={styles.clear}
                 viewBox="0 0 48 48"
                 xmlns="http://www.w3.org/2000/svg">

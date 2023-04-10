@@ -5,7 +5,7 @@ import { selectFilterSliceSort, setActiveSort } from '../redux/slices/filterSlic
 
 type SortItem = {
   name: string;
-  sort: string;
+  sort: 'rating' | 'title' | 'price' | '-rating' | '-title' | '-price';
 }
 
 export const sortList: SortItem[] = [
@@ -28,8 +28,8 @@ const Sort: React.FC = () => {
   const [open, setOpen] = React.useState(false);
 
   React.useEffect(() => {
-    const handleClickOutside = (event: any) => {
-      if (!event.composedPath().includes(sortRef.current)) {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (sortRef.current && !event.composedPath().includes(sortRef.current)) {
         setOpen(false)
       };
     }
