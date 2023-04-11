@@ -17,11 +17,13 @@ export const sortList: SortItem[] = [
   { name: "алфавиту (DESC)", sort: "-title" }
 ];
 
+type TSortProps = {
+  activeSort: SortItem
+}
 
-const Sort: React.FC = () => {
-// function Sort() {
+const Sort: React.FC<TSortProps> = React.memo(({activeSort}) => {
   const dispatch = useDispatch();
-  const activeSort = useSelector(selectFilterSliceSort);
+  // const activeSort = useSelector(selectFilterSliceSort);
 
   const sortRef = React.useRef<HTMLDivElement>(null);
 
@@ -85,6 +87,6 @@ const Sort: React.FC = () => {
     </div>
   )
 
-}
+})
 
 export default Sort

@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 type CategoriesProps = {
     chosenCategory: number;
     setChosenCategory: (index: number) => void;
@@ -12,11 +13,9 @@ const categories = ["Все",
 "Острые",
 "Закрытые"];
 
-const Categories: React.FC<CategoriesProps> = ({ chosenCategory, setChosenCategory }) => {
+const Categories: React.FC<CategoriesProps> = React.memo(({ chosenCategory, setChosenCategory }) => {
+
     // function Categories( {chosenCategory,setChosenCategory} ) {
-
-
-
 
     const onCategory = (index: number) => {
         setChosenCategory(index);
@@ -45,6 +44,6 @@ const Categories: React.FC<CategoriesProps> = ({ chosenCategory, setChosenCatego
         </div>
     )
 
-}
+})
 
 export default Categories;

@@ -51,6 +51,8 @@ const Home: React.FC = () => {
     window.scrollTo(0, 0);
   };
 
+  const onClickCategory = React.useCallback((i: number) => dispatch(setCategoryIndex(i)), []);
+
   // React.useEffect(() => {
   //   if (isMount.current) {
   //     const queryString = qs.stringify({
@@ -92,11 +94,8 @@ const Home: React.FC = () => {
   return (
     <div className="container">
       <div className="content__top">
-        <Categories
-          chosenCategory={categoryIndex}
-          setChosenCategory={(i: number) => dispatch(setCategoryIndex(i))}
-        />
-        <Sort />
+        <Categories chosenCategory={categoryIndex} setChosenCategory={onClickCategory} />
+        <Sort activeSort={activeSort}/>
       </div>
       <h2 className="content__title">Все пиццы</h2>
 
