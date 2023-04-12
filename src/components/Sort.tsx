@@ -1,7 +1,7 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { setActiveSort } from '../redux/filter/slice';
 
-import { selectFilterSliceSort, setActiveSort } from '../redux/slices/filterSlice';
 
 type SortItem = {
   name: string;

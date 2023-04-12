@@ -1,22 +1,10 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { RootState } from '../store';
-
-export type ActiveSort = {
-  name: string;
-  sort: 'rating' | 'title' | 'price' | '-rating' | '-title' | '-price';
-};
-
-interface FilterSliceState {
-  categoryIndex: number;
-  currentPage: number;
-  searchValue: string;
-  activeSort: ActiveSort;
-}
+import { ActiveSort, FilterSliceState } from './types';
 
 const initialState: FilterSliceState = {
   categoryIndex: 0,
   currentPage: 1,
-  searchValue: "",
+  searchValue: '',
   activeSort: {
     name: 'популярности (ASC)',
     sort: 'rating',
@@ -30,7 +18,7 @@ const filterSlice = createSlice({
     setCategoryIndex(state, action: PayloadAction<number>) {
       state.categoryIndex = action.payload;
     },
-    setActiveSort(state, action: PayloadAction<ActiveSort> ) {
+    setActiveSort(state, action: PayloadAction<ActiveSort>) {
       state.activeSort = action.payload;
     },
     setCurrentPage(state, action: PayloadAction<number>) {
@@ -43,13 +31,11 @@ const filterSlice = createSlice({
     },
     setSearchValue(state, action: PayloadAction<string>) {
       state.searchValue = action.payload;
-    }
+    },
   },
 });
 
-export const selectFilterSlice = (state: RootState) => state.filterSlice;
-export const selectFilterSliceSort = (state: RootState) => state.filterSlice.activeSort;
-
-export const { setCategoryIndex, setActiveSort, setCurrentPage, setStartFilter, setSearchValue } = filterSlice.actions;
+export const { setCategoryIndex, setActiveSort, setCurrentPage, setStartFilter, setSearchValue } =
+  filterSlice.actions;
 
 export default filterSlice.reducer;
